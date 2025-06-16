@@ -8,88 +8,88 @@
     "version": "2.0",
     "extraAttributes": {
         "Building": {
-            "+constructionYear": {
+            "constructionYear": {
                 "type": "integer"
             },
-            "+buildingType": {
+            "buildingType": {
                 "type": "string"
             },
-            "+buildingMaterials": {
+            "buildingMaterials": {
                 "type": "string"
             },
-            "+numberOfFloors": {
+            "numberOfFloors": {
                 "type": "integer"
             },
-            "+totalArea": {
+            "totalArea": {
                 "type": "number"
             },
-            "+floorHeight": {
+            "floorHeight": {
                 "type": "number"
             },
-            "+facadeOrientation": {
+            "facadeOrientation": {
                 "type": "string"
             },
-            "+windowToWallRatio": {
+            "windowToWallRatio": {
                 "type": "number"
             },
-            "+thermalBridges": {
+            "thermalBridges": {
                 "type": "boolean"
             },
-            "+delta_U_for": {
+            "delta_U_for": {
                 "type": "number"
             },
-            "+thermalMassCapacity": {
+            "thermalMassCapacity": {
                 "type": "number"
             },
-            "+airTightness": {
+            "airTightness": {
                 "type": "number"
             },
-            "+outdoorTemperatures": {
+            "outdoorTemperatures": {
                 "type": "number"
             },
-            "+solarRadiation": {
+            "solarRadiation": {
                 "type": "number"
             },
-            "+windConditions": {
+            "windConditions": {
                 "type": "string"
             },
-            "+humidity": {
+            "humidity": {
                 "type": "number"
             },
-            "+heatingSystemEfficiency": {
+            "heatingSystemEfficiency": {
                 "type": "number"
             },
-            "+fuelType": {
+            "fuelType": {
                 "type": "string"
             },
-            "+fuelConsumption": {
+            "fuelConsumption": {
                 "type": "number"
             },
-            "+numberOfOccupants": {
+            "numberOfOccupants": {
                 "type": "integer"
             },
-            "+internalGains": {
+            "internalGains": {
                 "type": "number"
             },
-            "+usageSchedule": {
+            "usageSchedule": {
                 "type": "string"
             },
-            "+operatingTemperatures": {
+            "operatingTemperatures": {
                 "type": "number"
             },
-            "+electricityConsumption": {
+            "electricityConsumption": {
                 "type": "number"
             },
-            "+heatingEnergyDemand": {
+            "heatingEnergyDemand": {
                 "type": "number"
             },
-            "+coolingEnergyDemand": {
+            "coolingEnergyDemand": {
                 "type": "number"
             },
-            "+renewableEnergySources": {
+            "renewableEnergySources": {
                 "type": "string"
             },
-            "+buildingEnvelope": {
+            "buildingEnvelope": {
                 "type": "object",
                 "properties": {
                     "wallUValue": {
@@ -112,7 +112,7 @@
                     }
                 }
             },
-            "+usageProfile": {
+            "usageProfile": {
                 "type": "object",
                 "properties": {
                     "weekday": {
@@ -123,7 +123,7 @@
                     }
                 }
             },
-            "+automationLevel": {
+            "automationLevel": {
                 "type": "string",
                 "enum": [
                     "none",
@@ -132,7 +132,7 @@
                     "smart"
                 ]
             },
-            "+solarPanels": {
+            "solarPanels": {
                 "type": "object",
                 "properties": {
                     "present": {
@@ -160,7 +160,7 @@
                     }
                 }
             },
-            "+hvacType": {
+            "hvacType": {
                 "type": "object",
                 "properties": {
                     "type": {
@@ -185,7 +185,7 @@
                     }
                 }
             },
-            "+ventilation": {
+            "ventilation": {
                 "type": "object",
                 "properties": {
                     "type": {
