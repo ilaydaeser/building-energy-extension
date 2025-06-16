@@ -4,6 +4,8 @@
     "description": "Extension to model building energy demand with relevant parameters",
     "url": "https://raw.githubusercontent.com/ilaydaeser/building-energy-extension/main/buildingenergymodelling.ext.json",
     "version": "2.0",
+    "type": "CityJSON",
+    "version": "2.0",
     "extraAttributes": {
         "Building": {
             "+constructionYear": {
