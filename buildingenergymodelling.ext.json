@@ -1,213 +1,469 @@
 {
     "type": "CityJSONExtension",
     "name": "BuildingEnergyModelling",
-    "description": "Extension to model building energy demand with relevant parameters",
-    "url": "https://raw.githubusercontent.com/ilaydaeser/building-energy-extension/main/buildingenergymodelling.ext.json",
-    "version": "1.1",
+    "description": "A CityJSON extension for storing building-level parameters required for urban building energy modelling, including physical, envelope, system, occupancy, climate-related and renewable energy attributes.",
+    "url": "https://raw.githubusercontent.com/ilaydaeser/building-energy-extension/main/building-energy-modelling.ext.json",
+    "version": "1.2",
     "versionCityJSON": "2.0",
     "extraAttributes": {
         "Building": {
             "constructionYear": {
-                "type": "integer"
+                "type": "integer",
+                "description": "Year in which the building was constructed.",
+                "unit": "year"
             },
-            "buildingType": {
-                "type": "string"
+            "buildingUseType": {
+                "type": "string",
+                "description": "Main functional use of the building.",
+                "enum": [
+                    "residential",
+                    "office",
+                    "commercial",
+                    "educational",
+                    "healthcare",
+                    "industrial",
+                    "mixed_use",
+                    "other"
+                ]
             },
-            "buildingMaterials": {
-                "type": "string"
+            "buildingArchetype": {
+                "type": "string",
+                "description": "Energy modelling archetype assigned to the building, if available."
             },
-            "numberOfFloors": {
-                "type": "integer"
+            "numberOfFloorsAboveGround": {
+                "type": "integer",
+                "description": "Number of floors above ground level.",
+                "minimum": 0
             },
-            "totalArea": {
-                "type": "number"
+            "numberOfFloorsBelowGround": {
+                "type": "integer",
+                "description": "Number of floors below ground level.",
+                "minimum": 0
             },
-            "floorHeight": {
-                "type": "number"
+            "grossFloorArea": {
+                "type": "number",
+                "description": "Total gross floor area of the building.",
+                "unit": "m2",
+                "minimum": 0
             },
-            "facadeOrientation": {
-                "type": "string"
+            "conditionedFloorArea": {
+                "type": "number",
+                "description": "Floor area that is heated and/or cooled.",
+                "unit": "m2",
+                "minimum": 0
+            },
+            "averageFloorHeight": {
+                "type": "number",
+                "description": "Average height of one floor.",
+                "unit": "m",
+                "minimum": 0
             },
             "windowToWallRatio": {
-                "type": "number"
+                "type": "number",
+                "description": "Ratio of window area to external wall area.",
+                "unit": "ratio",
+                "minimum": 0,
+                "maximum": 1
             },
-            "thermalBridges": {
-                "type": "boolean"
+            "mainFacadeOrientation": {
+                "type": "string",
+                "description": "Dominant orientation of the main facade.",
+                "enum": [
+                    "north",
+                    "northeast",
+                    "east",
+                    "southeast",
+                    "south",
+                    "southwest",
+                    "west",
+                    "northwest",
+                    "unknown"
+                ]
             },
-            "delta_U_for": {
-                "type": "number"
+            "thermalBridgeAllowance": {
+                "type": "number",
+                "description": "Additional heat transfer coefficient used to account for thermal bridges.",
+                "unit": "W/m2K",
+                "minimum": 0
+            },
+            "thermalMassClass": {
+                "type": "string",
+                "description": "Qualitative classification of the building thermal mass.",
+                "enum": [
+                    "light",
+                    "medium",
+                    "heavy",
+                    "unknown"
+                ]
             },
             "thermalMassCapacity": {
-                "type": "number"
+                "type": "number",
+                "description": "Effective thermal mass capacity of the building.",
+                "unit": "kJ/m2K",
+                "minimum": 0
             },
             "airTightness": {
-                "type": "number"
+                "type": "number",
+                "description": "Air leakage rate of the building envelope, typically expressed at 50 Pa.",
+                "unit": "ACH50",
+                "minimum": 0
             },
-            "outdoorTemperatures": {
-                "type": "number"
-            },
-            "solarRadiation": {
-                "type": "number"
-            },
-            "windConditions": {
-                "type": "string"
-            },
-            "humidity": {
-                "type": "number"
-            },
-            "heatingSystemEfficiency": {
-                "type": "number"
-            },
-            "fuelType": {
-                "type": "string"
-            },
-            "fuelConsumption": {
-                "type": "number"
-            },
-            "numberOfOccupants": {
-                "type": "integer"
-            },
-            "internalGains": {
-                "type": "number"
-            },
-            "usageSchedule": {
-                "type": "string"
-            },
-            "operatingTemperatures": {
-                "type": "number"
-            },
-            "electricityConsumption": {
-                "type": "number"
-            },
-            "heatingEnergyDemand": {
-                "type": "number"
-            },
-            "coolingEnergyDemand": {
-                "type": "number"
-            },
-            "renewableEnergySources": {
-                "type": "string"
-            },
-            "solarPanels": {
+            "buildingEnvelope": {
                 "type": "object",
+                "description": "Thermal properties of the building envelope.",
                 "properties": {
-                    "present": {
-                        "type": "boolean"
+                    "wallUValue": {
+                        "type": "number",
+                        "description": "Thermal transmittance of external walls.",
+                        "unit": "W/m2K",
+                        "minimum": 0
                     },
-                    "type": {
+                    "roofUValue": {
+                        "type": "number",
+                        "description": "Thermal transmittance of the roof.",
+                        "unit": "W/m2K",
+                        "minimum": 0
+                    },
+                    "groundFloorUValue": {
+                        "type": "number",
+                        "description": "Thermal transmittance of the ground floor or floor slab.",
+                        "unit": "W/m2K",
+                        "minimum": 0
+                    },
+                    "windowUValue": {
+                        "type": "number",
+                        "description": "Thermal transmittance of windows.",
+                        "unit": "W/m2K",
+                        "minimum": 0
+                    },
+                    "glazingType": {
                         "type": "string",
+                        "description": "Type of glazing used in windows.",
                         "enum": [
-                            "photovoltaic",
-                            "thermal",
-                            "hybrid"
+                            "single",
+                            "double",
+                            "triple",
+                            "low_e",
+                            "unknown"
                         ]
                     },
-                    "efficiency": {
-                        "type": "number"
+                    "solarHeatGainCoefficient": {
+                        "type": "number",
+                        "description": "Solar heat gain coefficient of glazing.",
+                        "unit": "ratio",
+                        "minimum": 0,
+                        "maximum": 1
                     },
-                    "area": {
-                        "type": "number"
-                    },
-                    "orientation": {
-                        "type": "string"
-                    },
-                    "tiltAngle": {
-                        "type": "number"
+                    "shadingDevices": {
+                        "type": "boolean",
+                        "description": "Indicates whether external or internal shading devices are present."
                     }
                 }
             },
-            "hvac": {
+            "hvacSystem": {
                 "type": "object",
+                "description": "Heating, ventilation and air-conditioning system properties.",
                 "properties": {
-                    "type": {
+                    "heatingSystemType": {
                         "type": "string",
+                        "description": "Main heating system type.",
                         "enum": [
-                            "central",
-                            "local",
-                            "mechanical"
+                            "central_boiler",
+                            "district_heating",
+                            "heat_pump",
+                            "local_heater",
+                            "electric_resistance",
+                            "none",
+                            "unknown"
                         ]
                     },
-                    "efficiencyHeating": {
-                        "type": "number"
+                    "coolingSystemType": {
+                        "type": "string",
+                        "description": "Main cooling system type.",
+                        "enum": [
+                            "central_chiller",
+                            "split_air_conditioner",
+                            "heat_pump",
+                            "none",
+                            "unknown"
+                        ]
                     },
-                    "efficiencyCooling": {
-                        "type": "number"
+                    "heatingSystemEfficiency": {
+                        "type": "number",
+                        "description": "Seasonal efficiency of the heating system.",
+                        "unit": "ratio",
+                        "minimum": 0,
+                        "maximum": 1
                     },
-                    "cop": {
-                        "type": "number"
+                    "coolingSystemCOP": {
+                        "type": "number",
+                        "description": "Coefficient of performance of the cooling system.",
+                        "minimum": 0
                     },
-                    "powerConsumption": {
-                        "type": "number"
+                    "fuelType": {
+                        "type": "string",
+                        "description": "Primary fuel or energy carrier used for heating.",
+                        "enum": [
+                            "natural_gas",
+                            "electricity",
+                            "district_heating",
+                            "coal",
+                            "fuel_oil",
+                            "biomass",
+                            "solar",
+                            "none",
+                            "unknown"
+                        ]
                     }
                 }
             },
             "ventilation": {
                 "type": "object",
+                "description": "Ventilation-related properties.",
                 "properties": {
-                    "type": {
+                    "ventilationType": {
                         "type": "string",
+                        "description": "Main ventilation strategy.",
                         "enum": [
                             "natural",
                             "mechanical",
-                            "hybrid"
+                            "hybrid",
+                            "unknown"
                         ]
                     },
-                    "flowRate": {
-                        "type": "number"
+                    "airChangeRate": {
+                        "type": "number",
+                        "description": "Ventilation or infiltration air change rate.",
+                        "unit": "1/h",
+                        "minimum": 0
                     },
                     "heatRecoveryEfficiency": {
-                        "type": "number"
+                        "type": "number",
+                        "description": "Efficiency of heat recovery system, if present.",
+                        "unit": "ratio",
+                        "minimum": 0,
+                        "maximum": 1
                     }
                 }
             },
-            "buildingEnvelope": {
+            "occupancy": {
                 "type": "object",
+                "description": "Occupancy and internal gain assumptions used in energy modelling.",
                 "properties": {
-                    "wallUValue": {
-                        "type": "number"
+                    "numberOfOccupants": {
+                        "type": "integer",
+                        "description": "Estimated number of regular occupants.",
+                        "minimum": 0
                     },
-                    "roofUValue": {
-                        "type": "number"
+                    "occupantDensity": {
+                        "type": "number",
+                        "description": "Number of occupants per conditioned floor area.",
+                        "unit": "person/m2",
+                        "minimum": 0
                     },
-                    "windowUValue": {
-                        "type": "number"
+                    "internalGains": {
+                        "type": "number",
+                        "description": "Internal heat gains from occupants, equipment and lighting.",
+                        "unit": "W/m2",
+                        "minimum": 0
                     },
-                    "glazingType": {
+                    "usageSchedule": {
                         "type": "string",
+                        "description": "Reference to the occupancy or operation schedule used in the model."
+                    },
+                    "heatingSetpointTemperature": {
+                        "type": "number",
+                        "description": "Indoor heating setpoint temperature.",
+                        "unit": "degC"
+                    },
+                    "coolingSetpointTemperature": {
+                        "type": "number",
+                        "description": "Indoor cooling setpoint temperature.",
+                        "unit": "degC"
+                    }
+                }
+            },
+            "climateData": {
+                "type": "object",
+                "description": "Climate-related input parameters or references used for energy simulation.",
+                "properties": {
+                    "climateZone": {
+                        "type": "string",
+                        "description": "Climate zone classification used for the building."
+                    },
+                    "weatherFileReference": {
+                        "type": "string",
+                        "description": "Reference or URI of the weather file used in simulation."
+                    },
+                    "annualMeanOutdoorTemperature": {
+                        "type": "number",
+                        "description": "Annual mean outdoor air temperature.",
+                        "unit": "degC"
+                    },
+                    "annualGlobalHorizontalIrradiation": {
+                        "type": "number",
+                        "description": "Annual global horizontal solar irradiation.",
+                        "unit": "kWh/m2/year",
+                        "minimum": 0
+                    },
+                    "annualMeanRelativeHumidity": {
+                        "type": "number",
+                        "description": "Annual mean relative humidity.",
+                        "unit": "percent",
+                        "minimum": 0,
+                        "maximum": 100
+                    }
+                }
+            },
+            "energyPerformance": {
+                "type": "object",
+                "description": "Measured or simulated energy performance indicators.",
+                "properties": {
+                    "annualHeatingEnergyDemand": {
+                        "type": "number",
+                        "description": "Annual useful heating energy demand.",
+                        "unit": "kWh/year",
+                        "minimum": 0
+                    },
+                    "annualCoolingEnergyDemand": {
+                        "type": "number",
+                        "description": "Annual useful cooling energy demand.",
+                        "unit": "kWh/year",
+                        "minimum": 0
+                    },
+                    "annualElectricityConsumption": {
+                        "type": "number",
+                        "description": "Annual electricity consumption.",
+                        "unit": "kWh/year",
+                        "minimum": 0
+                    },
+                    "annualFuelConsumption": {
+                        "type": "number",
+                        "description": "Annual fuel consumption.",
+                        "unit": "kWh/year",
+                        "minimum": 0
+                    },
+                    "primaryEnergyDemand": {
+                        "type": "number",
+                        "description": "Annual primary energy demand.",
+                        "unit": "kWh/year",
+                        "minimum": 0
+                    },
+                    "co2Emissions": {
+                        "type": "number",
+                        "description": "Annual operational carbon dioxide emissions.",
+                        "unit": "kgCO2/year",
+                        "minimum": 0
+                    }
+                }
+            },
+            "renewableEnergySystem": {
+                "type": "object",
+                "description": "Renewable energy systems integrated into the building.",
+                "properties": {
+                    "hasRenewableEnergySystem": {
+                        "type": "boolean",
+                        "description": "Indicates whether the building has any renewable energy system."
+                    },
+                    "systemType": {
+                        "type": "string",
+                        "description": "Type of renewable energy system.",
                         "enum": [
-                            "single",
-                            "double",
-                            "triple",
-                            "low-e"
+                            "photovoltaic",
+                            "solar_thermal",
+                            "hybrid_solar",
+                            "heat_pump",
+                            "none",
+                            "unknown"
                         ]
                     },
-                    "shadingDevices": {
-                        "type": "boolean"
-                    }
-                }
-            },
-            "usageProfile": {
-                "type": "object",
-                "properties": {
-                    "weekday": {
-                        "type": "string"
+                    "installedCapacity": {
+                        "type": "number",
+                        "description": "Installed capacity of the renewable energy system.",
+                        "unit": "kW",
+                        "minimum": 0
                     },
-                    "weekend": {
-                        "type": "string"
+                    "collectorOrPanelArea": {
+                        "type": "number",
+                        "description": "Total collector or panel area.",
+                        "unit": "m2",
+                        "minimum": 0
                     },
-                    "holiday": {
-                        "type": "string"
+                    "orientation": {
+                        "type": "string",
+                        "description": "Main orientation of the renewable energy system.",
+                        "enum": [
+                            "north",
+                            "northeast",
+                            "east",
+                            "southeast",
+                            "south",
+                            "southwest",
+                            "west",
+                            "northwest",
+                            "unknown"
+                        ]
+                    },
+                    "tiltAngle": {
+                        "type": "number",
+                        "description": "Tilt angle of the panels or collectors.",
+                        "unit": "degree",
+                        "minimum": 0,
+                        "maximum": 90
+                    },
+                    "systemEfficiency": {
+                        "type": "number",
+                        "description": "Nominal efficiency of the renewable energy system.",
+                        "unit": "ratio",
+                        "minimum": 0,
+                        "maximum": 1
                     }
                 }
             },
             "automationLevel": {
                 "type": "string",
+                "description": "Level of building automation or smart control.",
                 "enum": [
                     "none",
                     "basic",
                     "advanced",
-                    "smart"
+                    "smart",
+                    "unknown"
                 ]
+            },
+            "dataQuality": {
+                "type": "object",
+                "description": "Information about the reliability and origin of the energy-related attributes.",
+                "properties": {
+                    "dataSource": {
+                        "type": "string",
+                        "description": "Source of the attribute data.",
+                        "enum": [
+                            "measured",
+                            "survey",
+                            "municipal_database",
+                            "remote_sensing",
+                            "statistical_estimation",
+                            "simulation",
+                            "unknown"
+                        ]
+                    },
+                    "dataAcquisitionDate": {
+                        "type": "string",
+                        "description": "Date when the data was acquired or last updated.",
+                        "format": "date"
+                    },
+                    "confidenceLevel": {
+                        "type": "string",
+                        "description": "Qualitative confidence level of the provided data.",
+                        "enum": [
+                            "low",
+                            "medium",
+                            "high",
+                            "unknown"
+                        ]
+                    }
+                }
             }
         }
     },
